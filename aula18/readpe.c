@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include "lib/petest.h"
 
 void fatal(char *msg){
   fprintf(stderr, "%s\n", msg);
@@ -12,12 +12,6 @@ void usage(void){
   exit(1);
 }
 
-bool ispe(const unsigned char *b){
-  if (b[0] != 'M' || b[1] != 'Z')
-    return false;
-
-  return true;
-}
 
 int main(int argc, char *argv[]){
   FILE *fh;
@@ -36,7 +30,7 @@ int main(int argc, char *argv[]){
 
   fclose(fh);
 
-  if (!ispe(buffer))
+  if (!petest_ispe(buffer))
     fatal("arquivo nao parece ser um executal PE");
 
   return 0;
